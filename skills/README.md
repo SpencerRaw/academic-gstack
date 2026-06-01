@@ -9,46 +9,52 @@
 
 ## 开发状态
 
-### ✅ P0 — 已完成
+### ✅ P0 — 核心引擎（已完成）
 | 技能 | 描述 |
 |------|------|
 | `lit-reviewer` | 文献检索 + 分类 + 假说提取 |
 | `hypothesis-generator` | 四角色辩论 + 排名假说 + 验证方案 |
 | `peer-reviewer` | 三审稿人模拟 + 修订优先级矩阵 |
 
-### ✅ 战略层 — 已完成
+### ✅ 战略层（已完成）
 | 技能 | 描述 |
 |------|------|
 | `pi-reviewer` | PI 视角战略审查 + 五问框架 |
 | `lab-strategist` | 多课题并行调度 + 瓶颈预测 |
 
-### ✅ 编排层 — 已完成
+### ✅ 编排层（已完成）
 | 技能 | 描述 |
 |------|------|
-| `ac-gstack-pipeline` | 夜间流水线引擎：串联 Lit → Hypothesis → PI → 日报 |
+| `ac-gstack-pipeline` | 夜间流水线引擎：Lit → Hypothesis → PI → 日报 |
 
-### 📋 P1 — 计划中
+### ✅ P1 — 产出核心（已完成）
 | 技能 | 描述 |
 |------|------|
-| `paper-drafter` | 论文初稿：Abstract→Results→Discussion |
-| `data-analyst` | 自动统计 + 可视化 + 效应量 |
-| `journal-matcher` | 期刊推荐 + 命中率估算 |
+| `paper-drafter` | 论文初稿：Abstract→Results→Discussion→Methods |
+| `data-analyst` | 统计分析 + 可视化 + 效应量 + 功效分析 |
+| `journal-matcher` | 期刊推荐 + 命中率估算 + 投稿策略 |
 
-### 📋 P2 — 待开发
+### ✅ P2 — 实验支撑（已完成）
 | 技能 | 描述 |
 |------|------|
-| `method-designer` | 实验方案设计 + 样本量估算 |
-| `data-qa` | 数据完整性审计 |
-| `figure-artist` | 发表级图表生成 |
-| `novelty-checker` | 新颖性全网搜索 |
+| `method-designer` | 实验方案设计 + 样本量 + 对照 + protocol |
+| `data-qa` | 数据完整性审计 + 可重复性检查 |
+| `figure-artist` | 发表级图表生成 + 配色 + 多面板布局 |
+| `lit-monitor` | arXiv/bioRxiv 新论文推送 + Scoop 预警 |
+
+### 📋 剩余 — 待开发
+| 技能 | 描述 |
+|------|------|
+| `novelty-checker` | 新颖性全网搜索验证 |
 | `grant-writer` | 基金申请书自动生成 |
 | `cover-letter` | Cover letter 定制 |
 | `rebuttal-drafter` | 审稿意见逐条回复 |
 | `grant-scout` | 基金机会监控 |
-| `lit-monitor` | arXiv/bioRxiv 新论文推送 |
 | `social-writer` | 社交媒体推广 |
 | `lab-archivist` | 知识库管理 |
 | `lab-manager` | 日常状态看板 |
+
+**完成度: 13/18 skills (72%)**
 
 ## 技能格式
 

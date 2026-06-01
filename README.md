@@ -99,8 +99,13 @@ review   review     audit        artist    review    match      writer
 - [x] Strategy layer complete (PI Reviewer / Lab Strategist)
 - [x] Pipeline engine complete (ac-gstack-pipeline + cron)
 - [x] End-to-end deployment (Hermes Skills + nightly cron jobs)
-- [ ] P1 skills (Paper Drafter / Data Analyst / Journal Matcher)
+- [x] P1 skills complete (Paper Drafter / Data Analyst / Journal Matcher)
+- [x] P2 skills complete (Method Designer / Data QA / Figure Artist / Lit Monitor)
+- [x] Lit Monitor cron job active (Mon/Thu 8:00)
+- [ ] Novelty Checker / Grant Writer / Cover Letter / Social Writer
 - [ ] Public docs + tutorials
+
+**13/18 skills complete (72%)**
 
 ---
 
