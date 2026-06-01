@@ -1,5 +1,10 @@
 # Academic GStack — Operating System for the One-Person Lab
 
+[![Skills](https://img.shields.io/badge/skills-18%2F18-brightgreen)](skills/)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Status](https://img.shields.io/badge/status-active%20development-orange)](https://github.com/SpencerRaw/academic-gstack)
+[![Hermes](https://img.shields.io/badge/built%20on-Hermes%20Agent-purple)](https://github.com/NousResearch/hermes-agent)
+
 > [中文版](README.zh-CN.md) | [English](README.md)
 
 > "I don't think I've typed a line of code probably since December."
@@ -99,13 +104,11 @@ review   review     audit        artist    review    match      writer
 - [x] Strategy layer complete (PI Reviewer / Lab Strategist)
 - [x] Pipeline engine complete (ac-gstack-pipeline + cron)
 - [x] End-to-end deployment (Hermes Skills + nightly cron jobs)
-- [x] P1 skills complete (Paper Drafter / Data Analyst / Journal Matcher)
-- [x] P2 skills complete (Method Designer / Data QA / Figure Artist / Lit Monitor)
-- [x] Lit Monitor cron job active (Mon/Thu 8:00)
-- [ ] Novelty Checker / Grant Writer / Cover Letter / Social Writer
+- [x] All 18 skills complete (100%)
+- [x] 3 cron jobs active (nightly pipeline + lit monitor + grant scout)
 - [ ] Public docs + tutorials
 
-**13/18 skills complete (72%)**
+**18/18 skills complete (100%)** 🎉
 
 ---
 
