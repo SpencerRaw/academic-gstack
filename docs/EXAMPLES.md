@@ -1,170 +1,179 @@
-# Examples — Real Outputs from Academic GStack Skills
+# Examples — Sample Outputs from Academic GStack Skills
 
-> What you actually get when you run each skill.
-
----
-
-## Lit Reviewer — Sample Output
-
-```
-📚 文献审查报告: carbon dot PCD mechanisms
-检索时间: 2026-06-01 23:05
-
-📊 检索概览
-检索论文: 23 | 去重后: 15 | 入选分析: 10 | 高质量(≥35分): 4
-
-🏆 Top 3 排序论文
-
-| # | 标题 | 期刊 | 日期 | 总分 | 相关性 | 新颖性 |
-|---|------|------|------|------|--------|--------|
-| 1 | CDs induce ferroptosis via GPX4 | ACS Nano | 2025 | 42 | 9 | 8 |
-| 2 | Mitochondrial ROS in CD therapy | Small | 2024 | 38 | 8 | 7 |
-| 3 | CD size dictates death pathway | Nature Comm | 2025 | 36 | 7 | 9 |
-
-🔬 #1 深度分析
-核心假说: CDs downregulate GPX4 → lipid peroxidation → ferroptosis
-未检验推论: 线粒体脂质过氧化是否先于GPX4下调？
-与你课题的交叉: 你有线粒体ROS数据，他们没看线粒体
-
-🕳️ 研究空白
-| 空白领域 | 重要性 | 竞争程度 | 你的优势 |
-| CD→线粒体脂质过氧化→ferroptosis因果链 | 🔴高 | 低 | 已有TEM+ROS数据 |
-```
+> Real output format from each skill. Values and details are illustrative.
 
 ---
 
-## Hypothesis Generator — Sample Output
+## Lit Reviewer
 
 ```
-🧠 假说生成报告: CD cell death mechanism
+📚 Literature Review: nanomaterial-cell interaction mechanisms
+Search time: 2026-06-01 23:05
+Databases: arXiv, bioRxiv, PubMed | Time range: 2024-2026
 
-🏆 #1: CD-induced mitochondrial lipid peroxidation triggers 
-      ferroptosis via GPX4-independent pathway
+📊 Search Overview
+Searched: 23 | After dedup: 15 | Analyzed: 10 | High quality (≥35): 4
 
-辩论过程:
-机制派(A): 线粒体嵴消失+ROS+膜破裂 → 经典ferroptosis形态
-数据派(B): Annexin V- 排除凋亡。但数据缺少脂质过氧化直接证据
-类比派(C): 类似Erlotinib在三阴性乳腺癌中的机制——线粒体先于胞质
-怀疑派(D): 如何排除necroptosis？RIPK1/RIPK3/MLKL通路未检测
-→ 共识: 假说成立但需补实验
+🏆 Top 3 Papers
 
-验证方案:
-预测A: C11-BODIPY 2-4h信号增加 → 活细胞成像
-预测B: Fer-1 rescue剂量依赖性 → 剂量反应曲线
-预测C: GPX4蛋白水平不变 → Western blot
-证伪条件: 如果Fer-1不rescue → ferroptosis假说推翻
+| # | Title | Journal | Date | Score | Relevance | Novelty |
+|---|-------|---------|------|-------|-----------|---------|
+| 1 | Nanomaterials induce ferroptosis via GPX4 | ACS Nano | 2025 | 42 | 9 | 8 |
+| 2 | Mitochondrial ROS in nanomaterial therapy | Small | 2024 | 38 | 8 | 7 |
+| 3 | Particle size dictates death pathway | Nat Comm | 2025 | 36 | 7 | 9 |
+
+🔬 #1 Deep Dive
+Core hypothesis: Nanomaterials downregulate GPX4 → lipid peroxidation → ferroptosis
+Untested corollary: Does mitochondrial lipid peroxidation precede GPX4 downregulation?
+Relevance to your work: You have mitochondrial ROS data; they didn't look at mitochondria
+
+🕳️ Research Gaps
+| Gap | Importance | Competition | Your edge |
+| Nano→mito lipid peroxidation→ferroptosis chain | 🔴 High | Low | TEM+ROS data |
 ```
 
 ---
 
-## Peer Reviewer — Sample Output
+## Hypothesis Generator
 
 ```
-📝 模拟同行评审: CD-ferroptosis manuscript
+🧠 Hypothesis Report: nanomaterial cell death mechanism
+Generated: 2026-06-02 | Based on: 10 papers | Debate rounds: 3
 
-📊 评审总览
-| 审稿人 | 角色 | 建议 |
-| #1 | 方法论审查官 | Major Revision |
-| #2 | 领域专家 | Minor Revision |
-| #3 | 怀疑论者 | Major Revision |
+🏆 #1: Nanomaterial-induced mitochondrial lipid peroxidation triggers 
+      ferroptosis via a GPX4-independent pathway
 
-🔴 致命问题 (≥2审稿人一致)
+Debate summary:
+Mechanist (A): Cristae loss + ROS + membrane rupture → classic ferroptosis morphology
+Data-first (B): Annexin V- rules out apoptosis. But direct lipid peroxidation evidence missing
+Analogist (C): Similar to erlotinib mechanism in TNBC — mitochondrial precedes cytosolic
+Skeptic (D): How to exclude necroptosis? RIPK1/RIPK3/MLKL axis untested
+→ Consensus: Hypothesis plausible but needs (a) lipid peroxidation probe 
+             (b) Fer-1 rescue (c) GPX4 expression check
 
-F1: 缺少 necroptosis 排除实验
-- #1: RIPK1/3/MLKL应检测
-- #3: "ferroptosis不是唯一非凋亡死亡"
-→ 修复: 加Nec-1对照 + RIPK3 blot (预估3天)
-
-📋 修订优先级矩阵
-| 优先级 | 问题 | 修复成本 | 
-| P0 | F1: necroptosis排除 | 中(3d) |
-| P0 | F2: GPX4 activity assay | 低(1d) |
-| P1 | I1: 讨论中过度声称"首次" | 低(1h) |
-```
-
----
-
-## Journal Matcher — Sample Output
-
-```
-🎯 期刊匹配报告: CD-ferroptosis
-
-📊 论文自评
-新颖性: 7/10 | 方法学: 8/10 | 影响范围: 领域内
-最佳匹配IF区间: 12-18
-
-🥇 Tier 1 (命中率 5-15%)
-| 期刊 | IF | 匹配度 | 命中率 | 为什么 |
-| ACS Nano | 17 | 82% | 20% | 近2年发表过类似CD毒性研究 |
-| Nano Letters | 11 | 75% | 25% | 机制细节充分 |
-
-🥈 Tier 2 (命中率 15-30%) — 推荐！
-| Small | 13 | 78% | 25% | 纳米生物界面是scope核心 |
-
-🧭 推荐策略B (平衡): Small → 如被拒 → Nanoscale
+Verification:
+Prediction A: C11-BODIPY signal increases at 2-4h → live-cell imaging
+Prediction B: Fer-1 co-treatment rescues dose-dependently → dose-response
+Prediction C: GPX4 protein level unchanged → Western blot
+Falsification: If Fer-1 fails to rescue → ferroptosis hypothesis rejected
 ```
 
 ---
 
-## Data QA — Sample Output
+## Peer Reviewer
 
 ```
-🔍 数据质量审计: CD-ferroptosis
+📝 Simulated Peer Review: nanomaterial-ferroptosis manuscript
+Review time: 2026-06-03 | Target journal: ACS Nano
 
-🔴 致命缺陷
-| F1 | 缺失溶剂对照 | Fig 2A | DMSO用于Erastin但无DMSO-only对照 |
+📊 Review Overview
+| Reviewer | Role | Recommendation |
+| #1 | Methodologist | Major Revision |
+| #2 | Domain Expert | Minor Revision |
+| #3 | Skeptic | Major Revision |
 
-🟡 警告
-| W1 | n=3 for GPX4 WB | Fig 4C | 统计功效不足 |
-| W2 | Error bar = SEM 但未标注 | Fig 3B | 必须标注 |
+🔴 Critical Issues (≥2 reviewers agree)
 
-📊 审计摘要
-完整性:    ████████░░ 82%
-统计:      █████████░ 93%
-可重复性:  ██████░░░░ 65% ← 最低
-图像:      ████████░░ 88%
+F1: Missing necroptosis exclusion experiments
+- #1: RIPK1/3/MLKL should be tested
+- #3: "Ferroptosis is not the only non-apoptotic death"
+→ Fix: Add Nec-1 control + RIPK3 immunoblot (est. 3 days)
+
+📋 Revision Priority Matrix
+| Priority | Issue | Effort |
+| P0 | F1: Necroptosis exclusion | Med (3d) |
+| P0 | F2: GPX4 activity assay | Low (1d) |
+| P1 | I1: Overstated novelty claims in Discussion | Low (1h) |
 ```
 
 ---
 
-## Lit Monitor — Sample Output
+## Journal Matcher
 
 ```
-📡 文献监控周报: 2026-05-26 ~ 06-01
+🎯 Journal Match Report: nanomaterial-ferroptosis
+Match time: 2026-06-03
+
+📊 Self-Assessment
+Novelty: 7/10 | Methodology: 8/10 | Impact scope: Field-specific
+Best-fit IF range: 12-18
+
+🥇 Tier 1 (est. acceptance 15-25%)
+| Journal | IF | Match | Est. Accept | Why |
+| ACS Nano | 17 | 82% | ~20% | Recent similar nanotoxicity studies |
+| Nano Letters | 11 | 75% | ~25% | Mechanistic detail sufficient |
+
+🥈 Tier 2 (est. acceptance 25-35%) — RECOMMENDED
+| Small | 13 | 78% | ~25% | Nano-bio interface is core scope |
+
+🧭 Strategy B (Balanced): Small → if rejected → Nanoscale
+Estimated total timeline: 4-6 months
+```
+
+---
+
+## Data QA
+
+```
+🔍 Data Quality Audit: nanomaterial-ferroptosis
+Audit time: 2026-06-03 | Total checks: 24 | Pass: 19 | Warn: 3 | Fatal: 2
+
+🔴 Fatal (must fix before submission)
+| F1 | Missing vehicle control | Fig 2A | DMSO used for erastin but no DMSO-only |
+| F2 | n=2 for TEM quantification | Fig 1C | Minimum n=3 required |
+
+🟡 Warnings
+| W1 | n=3 for GPX4 WB | Fig 4C | Underpowered |
+| W2 | Error bars = SEM but not stated | Fig 3B | Must label |
+
+📊 Audit Summary
+Completeness:    ████████░░ 82%
+Statistics:      █████████░ 93%
+Reproducibility: ██████░░░░ 65% ← lowest
+Image integrity: ████████░░ 88%
+```
+
+---
+
+## Lit Monitor
+
+```
+📡 Literature Monitor: 2026-05-26 ~ 06-01
+Keywords: nanomaterials, ferroptosis, lipid peroxidation, cancer
 
 🔴 CRITICAL
-#1: "Size-dependent ferroptosis induction by carbon dots"
-    来源: bioRxiv, 2026-05-28
-    核心发现: <10nm CDs trigger ferroptosis, >10nm trigger apoptosis
-    ⚠️ 重叠: 他们做了你计划做的尺寸效应实验
-    🎯 应对: 你的差异化——他们只看了细胞，你有体内数据
+#1: "Size-dependent ferroptosis induction by nanomaterials"
+    Source: bioRxiv, 2026-05-28
+    Core finding: <10nm particles trigger ferroptosis; >10nm trigger apoptosis
+    ⚠️ Overlap: They did the size-effect experiment you planned
+    🎯 Response: Differentiate — they only did in vitro; you have in vivo data
 
-📊 本周统计
-论文总数:     ██████████ 25
-🔴 Critical:   ██ 2
-🟡 Relevant:   █████ 5
-🟢 Background: ██████████████ 18
+📊 Weekly Stats
+Total:          ██████████ 25
+🔴 Critical:     ██ 2
+🟡 Relevant:     █████ 5
+🟢 Background:   ██████████████ 18
 ```
 
 ---
 
-## Lab Manager — Sample Output
+## Lab Manager
 
 ```
-🏠 Lab Dashboard: 2026-06-01 (周一)
+🏠 Lab Dashboard: 2026-06-01 (Monday)
 
-⚡ 今日重点: 确认C11-BODIPY数据是否支持ferroptosis假说
+⚡ Today's priority: Confirm C11-BODIPY data supports ferroptosis hypothesis
 
-📋 任务列表
-| # | 优先 | 任务 | 课题 | 预估 |
-| 1 | P0 | C11-BODIPY 流式数据分析 | CD-ferroptosis | 1h |
-| 2 | P0 | Fer-1 rescue 剂量反应 | CD-ferroptosis | 2h |
-| 3 | P1 | GPX4 Western blot | CD-ferroptosis | 3h |
-| 4 | P2 | 文献更新检查 | 全课题 | 30m |
+📋 Tasks
+| # | Pri | Task | Project | Est |
+| 1 | P0 | C11-BODIPY flow analysis | Nano-ferroptosis | 1h |
+| 2 | P0 | Fer-1 rescue dose-response | Nano-ferroptosis | 2h |
+| 3 | P1 | GPX4 Western blot | Nano-ferroptosis | 3h |
+| 4 | P2 | Literature update check | All projects | 30m |
 
-📊 各课题进度
-| 课题 | 阶段 | 进度 | 下一步 |
-| CD-ferroptosis | 📊→✍️ | 75% | 启动Paper Drafter |
-| IDR project | 🔬 | 40% | 等待试剂 |
-| NIR project | 📖 | 20% | 完成文献分类 |
+📊 Project Progress
+| Project | Phase | Progress | Next |
+| Nano-ferroptosis | 📊→✍️ | 75% | Launch Paper Drafter |
+| Protein biophysics | 🔬 | 40% | Waiting for reagents |
+| Plant photobiology | 📖 | 20% | Finish classification |
 ```

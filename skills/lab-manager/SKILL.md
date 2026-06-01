@@ -23,45 +23,45 @@ tags: [research, project-management, dashboard, tracking, AI4S]
 ### 周视图
 
 ```
-本周: 2026-06-01 ~ 06-07
+This week: 2026-06-01 ~ 06-07
 
 ┌──────────────────────────────────────────────┐
-│  🔴 P0: lyq demo + 抗菌肽收尾 (下周死线)      │
+│  🔴 P0: Nano-ferroptosis — draft deadline    │
 │  ████████████████░░░░  80%                  │
-│  今天: 确认数据质量 ✅                         │
-│  明天: 开始写初稿                              │
-│  阻塞: 无                                     │
+│  Today: confirm data quality ✅               │
+│  Tomorrow: launch Paper Drafter               │
+│  Blocked: none                                │
 ├──────────────────────────────────────────────┤
-│  🟡 P1: QE 准备                               │
+│  🟡 P1: Protein biophysics project            │
 │  ██████░░░░░░░░░░░░  30%                    │
-│  今天: 继续收数据                              │
-│  阻塞: 等待试剂 (预计后天到)                    │
+│  Today: continue data collection              │
+│  Blocked: waiting for reagents (est. 2 days)  │
 ├──────────────────────────────────────────────┤
-│  🟢 P2: bxt 文献综述                          │
+│  🟢 P2: Plant photobiology lit review        │
 │  ████████████░░░░░░  60%                    │
-│  今天: 完成分类                                │
-│  阻塞: 无                                     │
+│  Today: finish classification                 │
+│  Blocked: none                                │
 └──────────────────────────────────────────────┘
 ```
 
-### 日视图
+### Daily View
 
 ```
-📅 今天: 2026-06-01 (周一)
+📅 Today: 2026-06-01 (Monday)
 
-Morning (8:00-12:00) 🧠 高认知
-  □ [P0] 确认 lyq 数据质量
-  □ [P0] 抗菌肽补充实验数据分析
-  □ [P1] 阅读 Elowitz 论文 #1
+Morning (8:00-12:00) 🧠 High cognition
+  □ [P0] Confirm nano-ferroptosis data quality
+  □ [P0] Run supplementary statistical analysis
+  □ [P1] Read foundational literature
 
-Afternoon (14:00-18:00) 🔧 中认知
-  □ [P0] 如果数据 OK → 启动 Paper Drafter
-  □ [P2] 完成 bxt 文献分类
-  □ [Admin] 回复导师邮件
+Afternoon (14:00-18:00) 🔧 Medium cognition
+  □ [P0] If data OK → launch Paper Drafter
+  □ [P2] Finish plant photobiology lit classification
+  □ [Admin] Reply to advisor emails
 
-Evening (20:00-21:00) 🌙 低认知
-  □ [Growth] 美式口语练习
-  □ [Plan] 明天任务预览
+Evening (20:00-21:00) 🌙 Low cognition
+  □ [Growth] Language practice
+  □ [Plan] Preview tomorrow's tasks
 ```
 
 ## 输出格式
@@ -77,39 +77,39 @@ Evening (20:00-21:00) 🌙 低认知
 
 ## 📋 任务列表
 
-| # | 优先级 | 任务 | 课题 | 预估 | 状态 |
-|---|--------|------|------|------|------|
-| 1 | P0 | 确认数据质量 | lyq | 1h | ⬜ |
-| 2 | P0 | 抗菌肽补充分析 | yx | 2h | ⬜ |
-| 3 | P1 | 文献阅读 | Elowitz | 30m | ⬜ |
-| 4 | P2 | 文献分类 | bxt | 1h | ⬜ |
+| # | Priority | Task | Project | Est | Status |
+|---|----------|------|---------|-----|--------|
+| 1 | P0 | Confirm data quality | Nano-ferroptosis | 1h | ⬜ |
+| 2 | P0 | Supplementary analysis | Protein physics | 2h | ⬜ |
+| 3 | P1 | Foundational reading | All | 30m | ⬜ |
+| 4 | P2 | Lit classification | Plant photo | 1h | ⬜ |
 
-## 📊 各课题进度
+## 📊 Project Progress
 
-| 课题 | 阶段 | 本周进度 | 整体进度 | 下一步 |
-|------|------|---------|---------|--------|
-| lyq | 📊→✍️ | 80% | 75% | 启动 Paper Drafter |
-| yx | 🔬 | 30% | 40% | 等试剂到 |
-| bxt | 📖 | 60% | 20% | 完成文献分类 |
+| Project | Phase | Week | Overall | Next |
+|---------|-------|------|---------|------|
+| Nano-ferroptosis | 📊→✍️ | 80% | 75% | Launch Paper Drafter |
+| Protein biophysics | 🔬 | 30% | 40% | Wait for reagents |
+| Plant photobiology | 📖 | 60% | 20% | Finish classification |
 
-## 🚨 预警
+## 🚨 Alerts
 
-| 级别 | 事项 | 影响 | 建议 |
-|------|------|------|------|
-| 🔴 | lyq 数据如有矛盾 → 重跑 | 可能错过 demo | 今天 10:00 前确认 |
-| 🟡 | yx 试剂延迟 | 实验推迟 2 天 | 先做能做的部分 |
+| Level | Issue | Impact | Suggestion |
+|-------|-------|--------|------------|
+| 🔴 | Nano-ferroptosis: data contradiction → re-run | May miss deadline | Confirm by 10:00 today |
+| 🟡 | Protein project: reagent delay | Experiment +2 days | Do what's possible now |
 
-## ✅ 昨天完成
+## ✅ Yesterday
 
-- [x] lyq 原始数据整理
-- [x] 抗菌肽 RT-qPCR 上机
-- [x] bxt 文献下载完成
+- [x] Nano-ferroptosis raw data organized
+- [x] qPCR run complete
+- [x] Plant photo literature downloaded
 
-## 📅 本周里程碑
+## 📅 Weekly Milestones
 
-- [ ] 周三: lyq 初稿完成
-- [ ] 周五: 抗菌肽所有数据到齐
-- [ ] 周日: 三课题统一回顾
+- [ ] Wed: Nano-ferroptosis first draft
+- [ ] Fri: All supplementary data collected
+- [ ] Sun: Full portfolio review
 
 ## 🔄 习惯追踪
 
