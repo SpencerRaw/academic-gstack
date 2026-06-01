@@ -21,6 +21,8 @@ Every scholar = an academic personal brand startup.
 - Your h-index = your valuation
 - Your lab = your company
 
+> 📖 **[Get Started in 5 Minutes →](docs/GETTING_STARTED.md)** | [Tutorial](docs/TUTORIAL.md) | [Examples](docs/EXAMPLES.md) | [FAQ](docs/FAQ.md)
+
 ---
 
 ## Core Mapping: gstack → Academic GStack
@@ -106,7 +108,8 @@ review   review     audit        artist    review    match      writer
 - [x] End-to-end deployment (Hermes Skills + nightly cron jobs)
 - [x] All 18 skills complete (100%)
 - [x] 3 cron jobs active (nightly pipeline + lit monitor + grant scout)
-- [ ] Public docs + tutorials
+- [x] Documentation (Getting Started + Tutorial + Examples + FAQ)
+- [ ] Video tutorial / docs site (future)
 
 **18/18 skills complete (100%)** 🎉
 
