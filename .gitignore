@@ -1,0 +1,27 @@
+# Secrets and environment
+.env
+*.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Hermes agent internals (never commit)
+.hermes/
+
+# Temporary files
+*.tmp
+*.log
