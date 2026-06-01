@@ -1,20 +1,20 @@
-# Academic GStack — 技术方案
+# Academic GStack — Technical Architecture
 
-> 如何用 Hermes Agent 生态实现一个学术版 gstack
+> How to build an academic gstack using the Hermes Agent ecosystem
 
 ---
 
-## 架构总览
+## Architecture Overview
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│                   Science CEO（你）                    │
-│         设定方向 → CHECKPOINT 判断 → 下一轮           │
+│               Science CEO (You)                       │
+│     Set direction → CHECKPOINT judgment → Next round  │
 ├──────────────────────────────────────────────────────┤
-│                  Academic GStack 调度层                │
-│              maestro + kanban + cron                   │
+│              Academic GStack Orchestration             │
+│           maestro + kanban + cron                      │
 ├──────────┬──────────┬──────────┬──────────────────────┤
-│ 战略层   │ 执行层   │ 产出层   │ 运营层               │
+│ Strategy │ Research │ Output   │ Operations           │
 │ PI       │ Lit      │ Paper    │ Lab Manager          │
 │ Strategy │ Hypo     │ Peer     │ Lit Monitor          │
 │ Grant    │ Method   │ Journal  │ Social Writer        │
@@ -22,218 +22,219 @@
 │          │ Figure   │ Rebuttal │                      │
 │          │ Novelty  │          │                      │
 ├──────────┴──────────┴──────────┴──────────────────────┤
-│                   底层能力                              │
-│   Co-Scientist ←→ SciDAO ←→ CD Foundation Model       │
-│   Hermes skills ←→ delegate_task ←→ cron              │
+│                 Foundation Layer                       │
+│     Co-Scientist ←→ SciDAO ←→ Domain Models           │
+│     Hermes skills ←→ delegate_task ←→ cron            │
 └──────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 实现方式：Hermes Skill 体系
+## Implementation: Hermes Skill System
 
-每个 agent 角色 = 一个 Hermes Skill。好处：
-1. 自然加载到会话中（`/skill lit-reviewer`）
-2. 可以被 cron job 自动调用
-3. 可以被 delegate_task 并行分发
-4. 可以被 darwin-skill 持续进化
-5. 跨 session 持久化
+Each agent role = one Hermes Skill. Benefits:
+1. Loads naturally into sessions (`/skill lit-reviewer`)
+2. Triggered automatically by cron jobs
+3. Parallel execution via delegate_task
+4. Continuously improved by darwin-skill
+5. Persistent across sessions
 
-### Skill 目录结构
+### Skill Directory Structure
 
 ```
 ~/.hermes/skills/academic-gstack/
-├── lit-reviewer/SKILL.md          # 文献检索 + 分类 + 假说提取
-├── hypothesis-generator/SKILL.md  # 假说生成 + 辩论排名
-├── method-designer/SKILL.md       # 实验方案设计
-├── data-analyst/SKILL.md          # 数据分析 + 统计
-├── data-qa/SKILL.md               # 数据质量审计
-├── figure-artist/SKILL.md         # 图表自动生成
-├── novelty-checker/SKILL.md       # 新颖性全网搜索
-├── paper-drafter/SKILL.md         # 论文初稿
-├── peer-reviewer/SKILL.md         # 模拟审稿
-├── journal-matcher/SKILL.md       # 期刊推荐
-├── grant-writer/SKILL.md          # 基金申请
-├── cover-letter/SKILL.md          # Cover letter
-├── rebuttal-drafter/SKILL.md      # 审稿回复
-├── pi-reviewer/SKILL.md           # PI 战略审查
-├── lab-strategist/SKILL.md        # 多课题调度
-├── grant-scout/SKILL.md           # 基金机会监控
-├── lit-monitor/SKILL.md           # 新论文推送
-├── social-writer/SKILL.md         # 社交媒体推广
-├── lab-archivist/SKILL.md         # 知识库管理
-└── lab-manager/SKILL.md           # 日常看板
+├── lit-reviewer/SKILL.md
+├── hypothesis-generator/SKILL.md
+├── method-designer/SKILL.md
+├── data-analyst/SKILL.md
+├── data-qa/SKILL.md
+├── figure-artist/SKILL.md
+├── novelty-checker/SKILL.md
+├── paper-drafter/SKILL.md
+├── peer-reviewer/SKILL.md
+├── journal-matcher/SKILL.md
+├── grant-writer/SKILL.md
+├── cover-letter/SKILL.md
+├── rebuttal-drafter/SKILL.md
+├── pi-reviewer/SKILL.md
+├── lab-strategist/SKILL.md
+├── grant-scout/SKILL.md
+├── lit-monitor/SKILL.md
+├── social-writer/SKILL.md
+├── lab-archivist/SKILL.md
+└── lab-manager/SKILL.md
 ```
 
 ---
 
-## 核心流水线
+## Core Pipelines
 
-### Pipeline 1: 假说 → 实验方案（睡前跑，醒来收）
+### Pipeline 1: Hypothesis → Experiment Design (run at night, results in the morning)
 
 ```
-cron: 每晚 23:00 触发
+cron: triggers nightly at 23:00
     │
     ▼
-delegate_task (并行 3 个)
-    ├── lyq-agent:
-    │   /skill lit-reviewer → 搜索 PCD+碳点最新文献
-    │   /skill hypothesis-generator → 基于文献 + 已有数据生成假说
-    │   /skill method-designer → 为 Top 3 假说设计验证实验
-    │   /skill novelty-checker → 验证假说新颖性
-    │   输出 → lyq 假说报告.md
+delegate_task (3 parallel agents)
+    ├── Project A agent:
+    │   /skill lit-reviewer → search latest literature
+    │   /skill hypothesis-generator → generate hypotheses from data
+    │   /skill method-designer → design verification experiments
+    │   /skill novelty-checker → verify novelty
+    │   Output → project_a_hypothesis_report.md
     │
-    ├── yx-agent:
-    │   同上流程，但针对 IDR+chromatin
-    │   输出 → yx 假说报告.md
+    ├── Project B agent:
+    │   Same pipeline, different domain
+    │   Output → project_b_hypothesis_report.md
     │
-    └── bxt-agent:
-        同上流程，但针对 NIR+horticulture
-        输出 → bxt 假说报告.md
+    └── Project C agent:
+        Same pipeline, different domain
+        Output → project_c_hypothesis_report.md
 ```
 
-### Pipeline 2: 数据 → 论文初稿
+### Pipeline 2: Data → Manuscript Draft
 
 ```
 delegate_task:
-    /skill data-analyst → 统计分析 + 可视化
-    /skill data-qa → 审计数据完整性
-    /skill figure-artist → 生成发表级图表
-    /skill paper-drafter → 写初稿
-    /skill peer-reviewer → 模拟 3 个审稿人给意见
-    /skill journal-matcher → 推荐目标期刊
+    /skill data-analyst → statistical analysis + visualization
+    /skill data-qa → audit data integrity
+    /skill figure-artist → publication-quality figures
+    /skill paper-drafter → write first draft
+    /skill peer-reviewer → simulate 3 reviewers
+    /skill journal-matcher → recommend target journals
 ```
 
-### Pipeline 3: 投稿 → 修订
+### Pipeline 3: Submission → Revision
 
 ```
 delegate_task:
-    /skill cover-letter → 针对目标期刊生成
-    [投稿，等审稿意见]
-    /skill rebuttal-drafter → 逐条分析 → 回复策略
+    /skill cover-letter → generate for target journal
+    [Submit, wait for reviews]
+    /skill rebuttal-drafter → analyze responses point by point
 ```
 
 ---
 
-## 技术选型
+## Technology Stack
 
-### 调度层
+### Orchestration Layer
 
-| 组件 | 用途 | 为什么 |
-|------|------|--------|
-| `delegate_task` | 并行 agent 执行 | Hermes 内置，自动管理 session 隔离 |
-| `cronjob` | 睡前启动定时任务 | 持久化调度，跨 session |
-| `kanban` (maestro) | 三课题看板 | 可视化进度，知道每个课题在哪个阶段 |
+| Component | Purpose |
+|-----------|---------|
+| `delegate_task` | Parallel agent execution with session isolation |
+| `cronjob` | Scheduled nightly pipeline triggers |
+| `kanban` (maestro) | Multi-project dashboard and progress tracking |
 
-### Agent 层
+### Agent Layer
 
-| 组件 | 用途 |
-|------|------|
-| Co-Scientist | 假说生成 + 辩论引擎（~88% 论文还原度） |
-| CD Foundation Model | 碳点领域专用模型，提供领域知识 |
-| DeepSeek / Claude | 通用 LLM 驱动每个 agent 角色 |
+| Component | Purpose |
+|-----------|---------|
+| Co-Scientist | Hypothesis generation + debate engine |
+| Domain Foundation Models | Field-specific knowledge (e.g., nanomaterial models) |
+| Claude / DeepSeek / GPT | General-purpose LLM driving each agent role |
 
-### 知识层
+### Knowledge Layer
 
-| 组件 | 用途 |
-|------|------|
-| SciDAO | 社区验证 + 众包反馈 |
-| Obsidian vault | 个人知识管理 |
-| `~/.hermes/sessions/` | 所有 agent 会话记录 |
+| Component | Purpose |
+|-----------|---------|
+| SciDAO | Community verification + crowdsourced feedback |
+| Obsidian / Logseq | Personal knowledge management |
+| Session store | All agent conversation records |
 
 ---
 
-## 数据流
+## Data Flow
 
 ```
-用户输入（自然语言一句话方向）
+User input (one-sentence direction)
     │
     ▼
-Lab Strategist 拆解成子任务
+Lab Strategist decomposes into subtasks
     │
-    ├──→ Lit Reviewer（文献检索）
+    ├──→ Lit Reviewer (literature search)
     │       │
     │       ▼
-    ├──→ Hypothesis Generator（假说生成）
+    ├──→ Hypothesis Generator (hypothesis generation)
     │       │
     │       ▼
-    ├──→ Method Designer（实验方案）
+    ├──→ Method Designer (experiment design)
     │       │
     │       ▼
-    │   [== CHECKPOINT: 你判断是否跑实验 ==]
+    │   [== CHECKPOINT: Human decision ==]
     │       │
     │       ▼
-    ├──→ Data Analyst（数据分析）
+    ├──→ Data Analyst (data analysis)
     │       │
     │       ▼
-    ├──→ Figure Artist（图表生成）
+    ├──→ Figure Artist (figure generation)
     │       │
     │       ▼
-    ├──→ Paper Drafter（初稿写作）
+    ├──→ Paper Drafter (manuscript draft)
     │       │
     │       ▼
-    ├──→ Peer Reviewer（模拟审稿）
+    ├──→ Peer Reviewer (simulated review)
     │       │
     │       ▼
-    │   [== CHECKPOINT: 你修改定稿 ==]
+    │   [== CHECKPOINT: Human revision ==]
     │       │
     │       ▼
-    └──→ Submit Engineer（投稿）
+    └──→ Submit Engineer (journal submission)
 ```
 
 ---
 
-## 关键设计决策
+## Key Design Decisions
 
-### 1. 为什么不自己做实验？
+### 1. Why not automate wet-lab experiments?
 
-Agent 不跑湿实验。但 Agent 可以：
-- 设计实验方案（protocol、样本量、对照组）
-- 生成实验记录模板
-- 分析实验数据
-- 发现数据中的异常/新现象
+Agents don't run wet-lab experiments. But they can:
+- Design protocols, sample sizes, control groups
+- Generate lab notebook templates
+- Analyze experimental data
+- Detect anomalies and new phenomena
 
-人做实验，AI 做脑力劳动。
+Humans do experiments. AI does the cognitive labor.
 
-### 2. 为什么要并行三个课题？
+### 2. Why run multiple projects in parallel?
 
-单线程跑一个课题：
-- 等实验结果 → 空闲
-- 等审稿 → 空闲
-- 等试剂 → 空闲
+Single-threaded research:
+- Wait for experiments → idle
+- Wait for reviews → idle
+- Wait for reagents → idle
 
-三线程并行：A 在分析数据时，B 在搜文献，C 在写初稿。时间利用率 ×3。
+N parallel threads: while A analyzes data, B searches literature, C drafts a manuscript. Time utilization ×N.
 
-### 3. 为什么每个课题都要有"蛋白电路延伸版"？
+### 3. Why build cross-domain extensions for every project?
 
-你做碳点 → 发碳点论文 → 只能找碳点博后。
-你做碳点 + 把它延伸到蛋白电路 → 能找蛋白电路博后 → Caltech Elowitz。
+Each research project gets two versions:
+- **Standard version**: publish in the project's native field
+- **Extended version**: connect to a higher-impact cross-domain direction
 
-每个课题的延伸版是你的差异化武器。
-
----
-
-## 优先级排序
-
-| 优先级 | 角色 | 理由 |
-|--------|------|------|
-| 🔴 P0 | Lit Reviewer | 所有下游依赖文献输入 |
-| 🔴 P0 | Hypothesis Generator | 核心价值：假说即产品 |
-| 🔴 P0 | Peer Reviewer | 最高杠杆：审稿意见 = 被拒率 ↓ |
-| 🟡 P1 | Paper Drafter | 减少 80% 写作时间 |
-| 🟡 P1 | Data Analyst | 统计错误是拒稿头号原因 |
-| 🟡 P1 | Journal Matcher | 投错期刊浪费 3-6 个月 |
-| 🟢 P2 | Figure Artist | 好图 = 引用率 ↑ |
-| 🟢 P2 | Grant Writer | 基金 = 自由 = 创业资本 |
-| 🟢 P2 | Social Writer | 学术个人品牌建设 |
-| 🔵 P3 | Lit Monitor | 被动信息流 |
-| 🔵 P3 | Lab Manager | 锦上添花 |
+The extension is your differentiation weapon — it opens doors to labs and funding that the standard version alone cannot access.
 
 ---
 
-## 下一步行动
+## Priority Ranking
 
-1. **本周**：写完 P0 三个 skill（Lit Reviewer + Hypothesis Generator + Peer Reviewer）
-2. **本周**：设置第一个 cron job（每晚自动文献检索）
-3. **2周内**：P0+P1 全部就位，lyq 课题跑通完整流水线
-4. **1个月**：三课题并行，每天睡前启动、醒来收三份报告
+| Priority | Role | Rationale |
+|----------|------|-----------|
+| 🔴 P0 | Lit Reviewer | All downstream depends on literature input |
+| 🔴 P0 | Hypothesis Generator | Core value: hypotheses are the product |
+| 🔴 P0 | Peer Reviewer | Highest leverage: review feedback → lower rejection rate |
+| 🟡 P1 | Paper Drafter | Reduces 80% of writing time |
+| 🟡 P1 | Data Analyst | Statistical errors are the #1 rejection cause |
+| 🟡 P1 | Journal Matcher | Wrong journal wastes 3-6 months |
+| 🟢 P2 | Figure Artist | Better figures → higher citation rates |
+| 🟢 P2 | Grant Writer | Grants = freedom = startup capital |
+| 🟢 P2 | Social Writer | Academic personal brand building |
+| 🔵 P3 | Lit Monitor | Passive information flow |
+| 🔵 P3 | Lab Manager | Quality of life improvement |
+
+---
+
+## Roadmap
+
+1. **Week 1**: Complete P0 skills (Lit Reviewer + Hypothesis Generator + Peer Reviewer)
+2. **Week 1**: Set up first cron job (nightly literature search)
+3. **Week 2-3**: P0+P1 fully operational, first project running complete pipeline
+4. **Month 1**: Multi-project parallel mode — start at night, receive reports in the morning

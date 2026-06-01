@@ -1,183 +1,186 @@
 ---
 name: ac-gstack-pipeline
-description: "Academic GStack 夜间科研流水线：串联 Lit Reviewer → Hypothesis Generator → PI Reviewer，输出三课题假说日报。每日 cron 自动触发。"
+description: "Academic GStack nightly research pipeline: chains Lit Reviewer → Hypothesis Generator → PI Reviewer, outputs multi-project daily brief. Triggered automatically by cron."
 version: 1.0.0
 author: Academic GStack
 tags: [research, pipeline, automation, cron, AI4S]
 ---
 
-# Academic GStack Pipeline — 夜间科研流水线
+# Academic GStack Pipeline — Nightly Research Engine
 
-> 睡前一句话，醒来三份假说报告等着你。
-> 这是 Academic GStack 的核心引擎。
+> One sentence before bed. Three hypothesis reports waiting when you wake up.
+> This is the core engine of Academic GStack.
 
-## 触发方式
+## Triggers
 
-- **自动**：cron job 每日定时触发
-- **手动**：`/skill ac-gstack-pipeline` + 指定课题
-- **单课题**：`/skill ac-gstack-pipeline 课题=lyq`
+- **Auto**: cron job triggers daily
+- **Manual**: `/skill ac-gstack-pipeline` + specify project
+- **Single project**: `/skill ac-gstack-pipeline project=alpha`
 
-## Pipeline 架构
-
-```
-输入: 三个课题方向（一句话）
-
-┌─────────────┐
-│ lyq: 碳点PCD │──→ Lit Reviewer ──→ Hypothesis Generator ──→ ┐
-│ 光诱导肿瘤   │      (文献检索)       (假说+辩论+排名)         │
-└─────────────┘                                               │
-                                                              ├──→ PI Reviewer ──→ 报告
-┌─────────────┐                                               │    (战略审查)
-│ yx: IDR+    │──→ Lit Reviewer ──→ Hypothesis Generator ──→ ┤
-│ chromatin   │                                              │
-└─────────────┘                                              │
-                                                              │
-┌─────────────┐                                               │
-│ bxt: NIR+   │──→ Lit Reviewer ──→ Hypothesis Generator ──→ ┘
-│ 植物光调控  │
-└─────────────┘
-
-输出: 三份假说日报 + 一份调度建议
-```
-
-## 执行步骤
-
-### Step 0: 读取课题配置
-
-从 memory 和 goals-and-milestones 中读取当前三课题状态：
+## Pipeline Architecture
 
 ```
-lyq: 碳点光诱导细胞死亡(PCD)肿瘤治疗。关键词: carbon dots, photodynamic therapy, 
-     PCD, ferroptosis, pyroptosis, apoptosis, ROS, tumor
-     设备: 共聚焦、流式细胞仪
-     死线: 下周 demo
+Input: N project directions (one sentence each)
 
-yx:  转录因子IDR与染色质互作。关键词: intrinsically disordered region, 
-     transcription factor, chromatin recognition, phase separation, 
-     biomolecular condensates
-     
-bxt: NIR碳点植物光调控。关键词: carbon dots, NIR, plant photobiology, 
-     light regulation, horticulture, photosynthesis, LED
+┌──────────────┐
+│ Project A    │──→ Lit Reviewer ──→ Hypothesis Generator ──→ ┐
+│ (e.g., nano) │                                               │
+└──────────────┘                                               │
+                                                               ├──→ PI Reviewer ──→ Daily Brief
+┌──────────────┐                                               │
+│ Project B    │──→ Lit Reviewer ──→ Hypothesis Generator ──→ ┤
+│ (e.g., bio)  │                                               │
+└──────────────┘                                               │
+                                                               │
+┌──────────────┐                                               │
+│ Project C    │──→ Lit Reviewer ──→ Hypothesis Generator ──→ ┘
+│ (e.g., plant)│
+└──────────────┘
+
+Output: N hypothesis reports + 1 strategy brief
 ```
 
-### Step 1: 并行文献检索
+## Execution Steps
 
-对三个课题同时启动 Lit Reviewer（用 delegate_task 并行）：
+### Step 0: Read Project Configuration
 
+Projects should be configured via `memory` or a config file with:
+- Project name and one-line direction
+- Keywords for literature search
+- Available equipment and constraints
+- Current deadlines
+
+Example config:
 ```
-delegate_task(tasks=[
-  {goal: "lit-review for lyq PCD carbon dots...", skills: ["lit-reviewer"]},
-  {goal: "lit-review for yx IDR chromatin...", skills: ["lit-reviewer"]},
-  {goal: "lit-review for bxt NIR plant...", skills: ["lit-reviewer"]},
-])
+Project A: carbon nanomaterials for biomedical applications
+  Keywords: carbon dots, photodynamic therapy, reactive oxygen species, tumor
+  Equipment: confocal microscope, flow cytometer
+  Deadline: upcoming conference
+
+Project B: protein biophysics and molecular recognition
+  Keywords: intrinsically disordered proteins, phase separation, molecular recognition
+  Equipment: SPR, ITC, fluorescence spectroscopy
+
+Project C: nanomaterials for agricultural photobiology
+  Keywords: nanomaterials, near-infrared, plant photobiology, light regulation
+  Equipment: growth chambers, spectrometer, portable fluorometer
 ```
 
-### Step 2: 并行假说生成
+### Step 1: Parallel Literature Search
 
-拿到三份 Lit Reviewer 报告后，同时启动 Hypothesis Generator：
+Launch Lit Reviewer for all projects simultaneously:
 
 ```
 delegate_task(tasks=[
-  {goal: "hypothesis-generation for lyq...", skills: ["hypothesis-generator"]},
-  {goal: "hypothesis-generation for yx...", skills: ["hypothesis-generator"]},
-  {goal: "hypothesis-generation for bxt...", skills: ["hypothesis-generator"]},
+  {goal: "lit-review for Project A...", skills: ["lit-reviewer"]},
+  {goal: "lit-review for Project B...", skills: ["lit-reviewer"]},
+  {goal: "lit-review for Project C...", skills: ["lit-reviewer"]},
 ])
 ```
 
-### Step 3: 战略审查 + 调度
+### Step 2: Parallel Hypothesis Generation
 
-拿到三份假说报告后，启动 PI Reviewer + Lab Strategist：
+Feed each Lit Reviewer report into Hypothesis Generator:
 
 ```
-1. 对每个课题跑 PI Reviewer（Hold Scope 模式）
-2. 跑 Lab Strategist 生成今日兵力分配
+delegate_task(tasks=[
+  {goal: "hypothesis-generation for Project A...", skills: ["hypothesis-generator"]},
+  {goal: "hypothesis-generation for Project B...", skills: ["hypothesis-generator"]},
+  {goal: "hypothesis-generation for Project C...", skills: ["hypothesis-generator"]},
+])
 ```
 
-### Step 4: 生成日报
+### Step 3: Strategy Review + Scheduling
 
-汇总所有输出为一份日报，格式见下方。
+Run PI Reviewer + Lab Strategist on all outputs:
 
-## 输出格式（日报）
+```
+1. PI Reviewer on each project (Hold Scope mode)
+2. Lab Strategist for daily resource allocation
+```
+
+### Step 4: Generate Daily Brief
+
+Compile all outputs into one daily brief.
+
+## Output Format (Daily Brief)
 
 ```markdown
-# 🌅 科研日报: {date}
-> 睡前启动 · 醒来收货 | Academic GStack Pipeline
+# 🌅 Research Daily Brief: {date}
+> Run while you sleep · Harvest when you wake | Academic GStack Pipeline
 
 ---
 
-## 🔴 lyq: 碳点PCD光诱导肿瘤细胞死亡
+## 🔴 Project A: {project_name}
 
-### 📚 文献更新
-- 检索到 {N} 篇新论文，其中 {M} 篇高度相关
-- 最重要发现: {one_sentence}
+### 📚 Literature Update
+- Found {N} new papers, {M} highly relevant
+- Key finding: {one_sentence}
 
-### 🧠 推荐假说 Top 1
+### 🧠 Top Hypothesis
 **{hypothesis_title}**
-{核心机制一句话}
+{one-sentence mechanism}
 
-验证实验: {one_experiment}
-蛋白电路延伸: {extension_or_"暂无"}
+Verification experiment: {one_experiment}
 
-### 🎯 PI 判断
-{继续/调整/缩小} — {理由一句话}
-
----
-
-## 🟡 yx: 转录因子IDR-染色质识别
-
-{同上结构}
+### 🎯 PI Judgment
+{continue/adjust/scope_down} — {one-sentence reason}
 
 ---
 
-## 🟢 bxt: NIR碳点园艺
-
-{同上结构}
-
----
-
-## 🗺️ 今日调度建议
-
-| 时段 | 任务 | 课题 | 为什么 |
-|------|------|------|--------|
-| 上午 | {task} | {project} | {reason} |
-| 下午 | {task} | {project} | {reason} |
+## 🟡 Project B: {project_name}
+{same structure}
 
 ---
 
-## ⚠️ 预警
+## 🟢 Project C: {project_name}
+{same structure}
+
+---
+
+## 🗺️ Today's Allocation
+
+| Time | Task | Project | Rationale |
+|------|------|---------|-----------|
+| Morning | {task} | {project} | {reason} |
+| Afternoon | {task} | {project} | {reason} |
+
+---
+
+## ⚠️ Alerts
 
 - {alert_1}
 - {alert_2}
 
 ---
 
-> 🤖 此报告由 Academic GStack Pipeline 自动生成
-> 下次运行: 今晚 23:00
+> 🤖 Auto-generated by Academic GStack Pipeline
+> Next run: tonight 23:00
 ```
 
-## Cron 配置
+## Cron Configuration
 
 ```bash
 hermes cron create "0 23 * * *" \
   --name "ac-gstack-nightly-pipeline" \
-  --prompt "加载 ac-gstack-pipeline skill。运行完整夜间科研流水线：对 lyq(碳点PCD)、yx(IDR+chromatin)、bxt(NIR植物) 三个课题依次执行 Lit Reviewer → Hypothesis Generator → PI Reviewer → Lab Strategist。生成日报。" \
+  --prompt "Load ac-gstack-pipeline skill. Run the full nightly research pipeline for all configured projects. For each: Lit Reviewer → Hypothesis Generator → PI Reviewer → Lab Strategist. Generate daily brief." \
   --skills "ac-gstack-pipeline" \
   --deliver "telegram" \
   --enabled_toolsets "web,terminal,file,skills,delegation,memory"
 ```
 
-## 单课题手动触发
+## Single-Project Manual Trigger
 
 ```
-/skill ac-gstack-pipeline 课题=lyq
+/skill ac-gstack-pipeline project=alpha
 ```
 
-只对 lyq 跑完整流水线。
+Runs the full pipeline for only one project.
 
-## 注意事项
+## Notes
 
-- Pipeline 在 cron 环境下运行，不能依赖当前会话上下文
-- 每个 delegate_task 的子 agent 只加载需要的 skill，减少 token 消耗
-- 如果某课题文献检索为 0 篇，扩展检索词后重试一次，仍为 0 则标注"文献不足"并跳过后续步骤
-- 日报通过 Telegram 推送到你手机上——醒来直接看
-- 如果 cron 因 API 限额失败，第二天自动重试（只跑失败的课题）
+- Pipeline runs in cron context — cannot depend on current session state
+- Each delegate_task child loads only needed skills to save tokens
+- If literature search returns 0 results, retry with expanded terms once; if still 0, flag "insufficient literature" and skip downstream
+- Daily brief delivered via Telegram — read it on your phone when you wake up
+- Failed project runs are retried next cycle

@@ -1,174 +1,173 @@
 ---
 name: lab-strategist
-description: "多课题并行调度：兵力分配、优先级排序、死线预警、资源冲突检测。科研版 Lab Manager。"
+description: "Multi-project parallel scheduler: resource allocation, priority ranking, deadline alerts, bottleneck prediction. The Lab Manager for research."
 version: 1.0.0
 author: Academic GStack
 tags: [research, strategy, multi-project, scheduling, AI4S]
 ---
 
-# Lab Strategist — 实验室调度官
+# Lab Strategist — Research Scheduler
 
-> 你不是在一个课题上做到完美——你是在三个课题之间做到最优。
-> 兵力分配、死线对齐、瓶颈预测。
+> You're not perfecting one project — you're optimizing across N projects.
+> Resource allocation, deadline alignment, bottleneck prediction.
 
-## 触发条件
+## Triggers
 
-- 每天 CHECKPOINT（自动或手动）
-- 用户说"三个课题现在什么状态？"
-- 新死线出现或旧死线变化
-- 用户纠结"先做哪个"
+- Daily CHECKPOINT (auto or manual)
+- User asks "what's the status of all projects?"
+- New deadline appears or existing one changes
+- User is deciding "which one first?"
 
-## 输入
+## Input
 
-1. 📋 **三个课题当前状态**（必需）— 每个课题的阶段 + 最新产出
-2. ⏰ **死线列表**（必需）— lyq demo、QE、抗菌肽 等
-3. 👤 **你的时间约束**（推荐）— 下周有多少时间做科研
+1. 📋 **Project statuses** (required) — each project's phase + latest output
+2. ⏰ **Deadline list** (required) — all known deadlines
+3. 👤 **Time constraints** (optional) — how much time available this week
 
-## 三课题状态模型
+## Project State Model
 
-每个课题始终处于以下六个阶段之一：
-
-```
-📖 SEARCHING  → 文献检索 + 假说生成
-🎯 PLANNING   → 实验方案设计 + PI 审查
-🔬 RUNNING    → 实验进行中（湿实验，你在做）
-📊 ANALYZING  → 数据分析 + 图表生成
-✍️ WRITING    → 论文初稿 + 内部审查
-📤 SUBMITTING → 投稿 + 审稿回复
-```
+Each project is always in one of six phases:
 
 ```
-lyq (碳点PCD):  [████████░░] 📊 ANALYZING → ✍️ WRITING
-yx (IDR):       [██████░░░░] 🔬 RUNNING
-bxt (NIR):      [████░░░░░░] 🎯 PLANNING
+📖 SEARCHING  → Literature search + hypothesis generation
+🎯 PLANNING   → Experiment design + PI review
+🔬 RUNNING    → Wet-lab experiments in progress
+📊 ANALYZING  → Data analysis + figure generation
+✍️ WRITING    → Manuscript draft + internal review
+📤 SUBMITTING → Journal submission + revision
 ```
 
-## 工作流
-
-### Step 1: 状态扫描
-
 ```
-对每个课题:
-- 当前阶段？
-- 上次 CHECKPOINT 的决定是什么？
-- 有没有阻塞？（等试剂？等数据？等人？）
-- 下一个 milestone 是什么？哪天之前？
+Project A:  [████████░░] 📊 ANALYZING → ✍️ WRITING
+Project B:  [██████░░░░] 🔬 RUNNING
+Project C:  [████░░░░░░] 🎯 PLANNING
 ```
 
-### Step 2: 死线压力计算
+## Workflow
+
+### Step 1: Status Scan
 
 ```
-死线压力 = 距离死线天数 / 剩余工作量估计
-
-lyq demo: 下周 → 压力 🔴
-QE 碳点:  2个月 → 压力 🟡
-抗菌肽:   下周 → 压力 🔴
-bxt:      无硬死线 → 压力 🟢
+For each project:
+- Current phase?
+- Last CHECKPOINT decision?
+- Any blockers? (waiting for reagents? data? collaborators?)
+- Next milestone? By when?
 ```
 
-### Step 3: 兵力分配建议
+### Step 2: Deadline Pressure Calculation
 
 ```
-基于状态 + 死线压力 + 你的精力：
+Deadline pressure = days until deadline / estimated remaining work
 
-今天/本小时的分配：
-
-上午:
-  8-10:  lyq 数据分析（死线最近，你的核心判断最关键）
-  10-12: 抗菌肽收尾（也是一周死线）
-
-下午:
-  14-16: yx 实验（设备预约了）
-  16-18: bxt 文献扫尾（低认知负荷，下午后半段合适）
-
-晚上: 留给 Academic GStack 建设 🏗️
+Project A: conference abstract → next week → pressure 🔴
+Project B: grant report → 2 months → pressure 🟡
+Project C: no hard deadline → pressure 🟢
 ```
 
-### Step 4: 瓶颈预测
+### Step 3: Resource Allocation
 
 ```
-未来 1-2 周可能出现的瓶颈：
+Based on phase + deadline pressure + your energy curve:
 
-- lyq: 如果数据分析发现矛盾 → 需要重跑实验 → 可能错过 demo
-  - 缓解: 今天就确认数据质量，周末前留出重跑窗口
-  
-- yx: 细胞房下周三维护 → 实验必须周二前完成
-  - 缓解: 周五前做完关键步骤
+Today's allocation:
 
-- bxt: 还没到瓶颈阶段
+Morning (high focus):
+  8-10:  Project A data analysis (nearest deadline, needs your judgment)
+  10-12: Project B experiment (equipment booked)
+
+Afternoon (medium focus):
+  14-16: Project C literature deep-dive
+  16-18: Administrative (grant scouting, email)
+
+Evening: Academic GStack development 🏗️
 ```
 
-### Step 5: CHECKPOINT 设置
+### Step 4: Bottleneck Prediction
 
 ```
-为今天/本周设置 CHECKPOINT：
+Predicted bottlenecks in the next 1-2 weeks:
 
-明天早上 CHECKPOINT:
-  - lyq: 数据分析是否出现矛盾？
-  - 抗菌肽: 补充实验是否齐全？
+- Project A: if data analysis finds contradictions → need re-run → may miss deadline
+  - Mitigation: confirm data quality today, leave re-run window before weekend
 
-周末 CHECKPOINT:
-  - 三课题统一评审: 哪些继续？哪些调方向？哪些放慢？
+- Project B: equipment maintenance Wednesday → experiments must finish Tuesday
+  - Mitigation: complete critical steps by Friday
+
+- Project C: no bottleneck yet
 ```
 
-## 输出格式
+### Step 5: CHECKPOINT Setup
+
+```
+Today's/this week's CHECKPOINTs:
+
+Tomorrow morning:
+  - Project A: any data contradictions?
+  - Project B: supplementary experiments complete?
+
+Weekend:
+  - Full portfolio review: which to continue? adjust? slow down?
+```
+
+## Output Format
 
 ```markdown
-# 🗺️ 实验室调度报告: {date}
-> 时间: {timestamp} | 三课题并行
+# 🗺️ Lab Strategy Report: {date}
+> Time: {timestamp} | {N} projects in parallel
 
-## 📊 全局状态
+## 📊 Global Status
 
-| 课题 | 阶段 | 进度 | 死线压力 | 优先级 |
-|------|------|------|---------|--------|
-| lyq (碳点PCD) | 📊 ANALYZING | 75% | 🔴 下周 | #1 |
-| yx (IDR) | 🔬 RUNNING | 40% | 🟡 - | #3 |
-| bxt (NIR) | 🎯 PLANNING | 20% | 🟢 - | #2 |
+| Project | Phase | Progress | Deadline Pressure | Priority |
+|---------|-------|----------|-------------------|----------|
+| Project A | 📊 ANALYZING | 75% | 🔴 Next week | #1 |
+| Project B | 🔬 RUNNING | 40% | 🟡 - | #3 |
+| Project C | 🎯 PLANNING | 20% | 🟢 - | #2 |
 
-## 🔴 lyq: 碳点PCD {#1 优先级}
+## 🔴 Project A {#1 priority}
 
-**当前阶段**: 📊 数据分析
-**最新产出**: {latest output}
-**阻塞**: {blockers or "无阻塞"}
-**下一步**: {next action}
-**本周目标**: {weekly goal}
-**死线**: 下周 demo
+**Current phase**: 📊 Data analysis
+**Latest output**: {latest output}
+**Blockers**: {blockers or "none"}
+**Next action**: {next action}
+**Weekly goal**: {weekly goal}
+**Deadline**: upcoming conference
 
-## 🟡 yx: 转录因子IDR {#3 优先级}
+## 🟡 Project B {#3 priority}
 
-{同上结构}
+{same structure}
 
-## 🟢 bxt: NIR碳点园艺 {#2 优先级}
+## 🟢 Project C {#2 priority}
 
-{同上结构}
+{same structure}
 
-## ⚡ 今日兵力分配
+## ⚡ Today's Allocation
 
 ```
-上午: lyq + 抗菌肽
-下午: yx + bxt
+Morning: Project A + Project B
+Afternoon: Project C + admin
 ```
 
-## 🚨 风险预警
+## 🚨 Risk Alerts
 
-- ⚠️ lyq 数据矛盾 → 周末前留重跑窗口
-- ⚠️ yx 细胞房维护 → 周五前做完关键步骤
+- ⚠️ Project A data contradiction → reserve re-run window before weekend
+- ⚠️ Project B equipment maintenance → finish critical steps by Friday
 
-## 🎯 明天 CHECKPOINT
+## 🎯 Tomorrow's CHECKPOINT
 
-- [ ] lyq 数据质量确认
-- [ ] 抗菌肽补充实验完成
+- [ ] Project A data quality confirmation
+- [ ] Project B supplementary experiment complete
 
-## 🔄 下一步调度
+## 🔄 Next Phase Actions
 
-- 如果 lyq 数据确认无误 → 启动 Paper Drafter
-- 如果 yx 实验顺利 → 启动 Data Analyst
-- 如果 bxt 文献充足 → 启动 Hypothesis Generator
+- If Project A data is clean → launch Paper Drafter
+- If Project B experiment successful → launch Data Analyst
+- If Project C literature sufficient → launch Hypothesis Generator
 ```
 
-## 注意事项
+## Notes
 
-- 兵力分配要考虑你的精力曲线——高认知任务放在你的高效时段
-- 死线压力是动态的——每天刷新
-- "三课题并行"不代表平均用力——关键路径决定优先级
-- 你的时间是瓶颈——所有兵力分配最终都要换算成"你需不需要亲自做"
+- Resource allocation should match your energy curve — high-cognition tasks in your peak hours
+- Deadline pressure is dynamic — recalculate daily
+- "N projects in parallel" doesn't mean equal effort — critical path determines priority
+- Your time is the bottleneck — all allocations should translate to "do you need to do this personally?"
