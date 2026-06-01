@@ -101,10 +101,12 @@ review   review     审计          artist     review    match      writer
 ## 当前开发状态
 
 - [x] 设计文档完成（18 个角色定义 + 完整工作流）
-- [ ] P0 技能开发（Lit Reviewer / Hypothesis Generator / Peer Reviewer）
+- [x] P0 技能开发完成（Lit Reviewer / Hypothesis Generator / Peer Reviewer）
+- [x] 战略层技能完成（PI Reviewer / Lab Strategist）
+- [x] Pipeline 引擎完成（ac-gstack-pipeline + cron）
+- [x] 端到端部署完成（Hermes Skills + 夜间定时任务）
 - [ ] P1 技能开发（Paper Drafter / Data Analyst / Journal Matcher）
-- [ ] Pipeline 集成（cron + delegate_task 自动流水线）
-- [ ] 公开文档 + 教程
+- [ ] 公开文档 + 使用教程
 
 ---
 
