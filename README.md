@@ -133,3 +133,28 @@ review   review     audit        artist    review    match      writer
 ---
 
 MIT License · Building 🏗️
+
+---
+
+## Install
+
+```bash
+git clone https://github.com/SpencerRaw/academic-gstack.git
+cp -r skills/* ~/.hermes/skills/
+```
+
+Requires [Hermes Agent](https://github.com/NousResearch/hermes-agent). See [Getting Started](docs/GETTING_STARTED.md) for full setup.
+
+## Usage
+
+```
+hermes skill load lit-reviewer
+hermes skill load peer-reviewer
+hermes skill load hypothesis-generator
+```
+
+See [Tutorial](docs/TUTORIAL.md) and [Examples](docs/EXAMPLES.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). New skills follow the [skill template](skills/TEMPLATE.md).
